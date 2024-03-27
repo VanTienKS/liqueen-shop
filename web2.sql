@@ -19,7 +19,7 @@
 CREATE DATABASE IF NOT EXISTS `web2` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `web2`;
 
--- Dumping structure for table web2.action  1
+-- Dumping structure for table web2.action
 CREATE TABLE IF NOT EXISTS `action` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `star` float NOT NULL,
   `created_date` datetime NOT NULL,
   `description` text DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `product_id` (`product_id`),
   CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
@@ -137,6 +138,9 @@ CREATE TABLE IF NOT EXISTS `order` (
   `payment_method` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:COD, 1: bank',
   `shipping_fee` int(11) DEFAULT 0,
   `delivered_date` date DEFAULT NULL,
+  `cus_fullname` varchar(50) DEFAULT NULL,
+  `cus_mobile` varchar(15) DEFAULT NULL,
+  `cus_address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `order_order_status_fk_1` (`order_status_id`),
   KEY `shipping_unit_fk_1` (`shipping_unit_id`),
