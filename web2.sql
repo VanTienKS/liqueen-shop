@@ -19,6 +19,33 @@
 CREATE DATABASE IF NOT EXISTS `web2` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `web2`;
 
+-- Dumping structure for table web2.product
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `discount_id` int(10) NOT NULL DEFAULT 0,
+  `barcode` varchar(13) NOT NULL,
+  `sku` varchar(20) NOT NULL,
+  `name` varchar(300) NOT NULL,
+  `price` int(11) NOT NULL,
+  `featured_image` varchar(100) NOT NULL,
+  `inventory_qty` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `brand_id` int(11) DEFAULT NULL,
+  `created_date` datetime NOT NULL,
+  `description` text NOT NULL,
+  `enter_price` float DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `barcode` (`barcode`),
+  KEY `product_category_fk_1` (`category_id`),
+  KEY `brand_id` (`brand_id`),
+  KEY `discount_id_fk_1` (`discount_id`),
+  CONSTRAINT `discount_id_fk_1` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`),
+  CONSTRAINT `product_category_fk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  CONSTRAINT `product_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- Dumping data for table web2.product: ~0 rows (approximately)
+
 -- Dumping structure for table web2.action
 CREATE TABLE IF NOT EXISTS `action` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -169,32 +196,7 @@ CREATE TABLE IF NOT EXISTS `order_item` (
 
 -- Dumping data for table web2.order_item: ~0 rows (approximately)
 
--- Dumping structure for table web2.product
-CREATE TABLE IF NOT EXISTS `product` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `discount_id` int(10) NOT NULL DEFAULT 0,
-  `barcode` varchar(13) NOT NULL,
-  `sku` varchar(20) NOT NULL,
-  `name` varchar(300) NOT NULL,
-  `price` int(11) NOT NULL,
-  `featured_image` varchar(100) NOT NULL,
-  `inventory_qty` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `brand_id` int(11) DEFAULT NULL,
-  `created_date` datetime NOT NULL,
-  `description` text NOT NULL,
-  `enter_price` float DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `barcode` (`barcode`),
-  KEY `product_category_fk_1` (`category_id`),
-  KEY `brand_id` (`brand_id`),
-  KEY `discount_id_fk_1` (`discount_id`),
-  CONSTRAINT `discount_id_fk_1` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`id`),
-  CONSTRAINT `product_category_fk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
-  CONSTRAINT `product_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- Dumping data for table web2.product: ~0 rows (approximately)
 
 -- Dumping structure for table web2.province
 CREATE TABLE IF NOT EXISTS `province` (
