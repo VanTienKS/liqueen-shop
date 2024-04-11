@@ -12,11 +12,11 @@ if(isset($_POST['id_edit2'])){
   $query_edit = mysqli_query($mysqli, $sql_editsupplier);
 }
 //Xóa nhà cung cấp
-if(isset($_POST['id_supplier'])){
-  $id=$_POST['id_supplier'];
-  $sql_delsupplier="DELETE from supplier where id=$id";
-  $query_delsupplier=mysqli_query($mysqli,$sql_delsupplier);
-}
+// if(isset($_POST['id_supplier'])){
+//   $id=$_POST['id_supplier'];
+//   $sql_delsupplier="DELETE from supplier where id=$id";
+//   $query_delsupplier=mysqli_query($mysqli,$sql_delsupplier);
+// }
 // Hiển thị id danh mục sản phẩm trong thẻ select
 if (isset($_POST['pull_select2'])) {
   $sql_select2 = "SELECT * from category order by id asc";

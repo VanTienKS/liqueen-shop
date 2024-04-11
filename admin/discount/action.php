@@ -1,5 +1,7 @@
-<?php
-include("../../connectdb/connect.php");
+
+<?php   
+include '../../database/Database.php';
+
 //Sửa dữ liệu
 if(isset($_POST['id_edit'])){
   $id=$_POST['id_edit'];
@@ -8,8 +10,9 @@ if(isset($_POST['id_edit'])){
   $firstday = $_POST['first_day'];
   $finishday = $_POST['finish_day'];
   $sql_editcode = "UPDATE discount set name='".$name."',discount_percentage= '".$percentcode."', start_day='".$firstday."', finish_date='".$finishday."' where id=$id";
-  $result = mysqli_query($mysqli, $sql_editcode);
+  $result = Database::getInstance()->execute($sql_editcode);
 }
+
 //Xóa dữ liệu
 if(isset($_POST['id'])){
   $id=$_POST['id'];
@@ -23,12 +26,14 @@ if (isset($_POST['code'])) {
   $firstday = $_POST['firstday'];
   $finishday = $_POST['finishday'];
   $sql_addcode = "INSERT into discount(id,name,discount_percentage,start_day,finish_date) value('$code','$name','$percentcode','$firstday','$finishday')";
+
   $result = mysqli_query($mysqli, $sql_addcode);
 }
 
 // Hiển thị dữ liệu
 $out_put = "";
-$sql_select = mysqli_query($mysqli, "SELECT * from discount order by id desc");
+$query = "SELECT * from discount order by id desc"; 
+$sql_select = Database::getInstance()->execute($query);
 $out_put .= "
     <div>
       <table border=1 width=100%>
@@ -63,4 +68,4 @@ if (mysqli_num_rows($sql_select) > 0) {
 }
 $out_put.="</table></div>";
 echo $out_put;
-?>
+?> 
