@@ -30,6 +30,7 @@ $(document).ready(function () {
       data: { id_edit: id_edit, name_code: name_code, percent_code: percent_code, first_day: first_day, finish_day: finish_day },
       success: function (data) {
         fetch_data();
+        alert("Sửa thành công");
       }
     });
   });
@@ -62,8 +63,14 @@ $(document).ready(function () {
   // thêm dữ liệu
   $('#btn-submit').click(function () {
     //let dataForm = $('form').serialize();
-    let d = new Date();
-    let strDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+    var d = new Date();
+
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+
+    var currentDate = d.getFullYear() + '-' +
+      (month < 10 ? '0' : '') + month + '-' +
+      (day < 10 ? '0' : '') + day;
     let id = $('#codeadd').val();
     let name_code = $('#nameadd').val();
     let percent_code = $('#percentcodeadd').val();
@@ -71,13 +78,13 @@ $(document).ready(function () {
     let end_day = $('#enddayadd').val();
     if (id == '' || name_code == '' || percent_code == '' || start_day == '' || end_day == '') {
       alert("Không được bỏ trống các trường");
-    }
-    else if (percent_code < 1 || percent_code > 90) {
+    } else if (percent_code < 1 || percent_code > 90) {
       alert("% giảm giá không phù hợp");
-    } else if (start_day < strDate) {
-      alert("Ngày bắt đầu không hợp lệ");
     } else if (start_day > end_day) {
       alert("Ngày bắt đầu không được lớn hơn ngày kết thúc");
+    }
+    else if (start_day < currentDate) {
+      alert("Ngày bắt đầu không hợp lệ");
     }
     else {
       $.ajax({

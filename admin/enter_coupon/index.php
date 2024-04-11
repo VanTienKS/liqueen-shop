@@ -5,14 +5,14 @@ require_once('../layouts/header.php');
 ?>
 
 <div class="d-flex justify-content-between align-items-center">
-     <h2>Nhà cung cấp</h2>
-     <div><button class="btn-add btn btn-success" data-toggle="modal" data-target="#modal-add-supplier" id="btn-add-supplier">Thêm</button></div>
+     <h2>Phiếu nhập</h2>
+     <div><button class="btn-add btn btn-success" data-toggle="modal" data-target="#modal-add-entercoupon" id="btn-add-entercoupon">Thêm</button></div>
 </div>
 
-<div id="load-supplier-data">
+<div id="load-entercoupon-data">
 </div>
 <!-- Modal edit -->
-<div class="modal fade" id="modal-edit-supplier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-edit-entercoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
                <div class="modal-header">
@@ -20,20 +20,20 @@ require_once('../layouts/header.php');
                     <button type="button" class="btn-close" data-bs-dismiss="modal" data-dismiss="modal" aria-label="Close">X</button>
                </div>
                <div class="modal-body">
-                    <div id="form-edit-supplier-container">
+                    <div id="form-edit-entercoupon-container">
                          <table>
                               <form method="POST" id="add-data" name="">
                                    <tr>
                                         <td>Mã nhà cung cấp</td>
-                                        <td><input type="number" id="id-edit-supplier" disabled=disabled></td>
+                                        <td><input type="number" id="id-edit-entercoupon" disabled=disabled></td>
                                    </tr>
                                    <tr>
                                         <td>Tên nhà cung cấp</td>
-                                        <td><input type="text" id="name-edit-supplier"></td>
+                                        <td><input type="text" id="name-edit-entercoupon"></td>
                                    </tr>
                                    <tr>
                                         <td>Địa chỉ</td>
-                                        <td><input type="text" id="address-edit-supplier"></td>
+                                        <td><input type="text" id="address-edit-entercoupon"></td>
                                    </tr>
                                    <tr>
                                         <td>Phí vận chuyển</td>
@@ -54,39 +54,44 @@ require_once('../layouts/header.php');
      </div>
 </div>
 <!-- Modal add -->
-<div class="modal fade" id="modal-add-supplier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-add-entercoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Thêm nhà cung cấp</h3>
+                    <h3 class="modal-title" id="exampleModalLabel">Thêm phiếu nhập</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" data-dismiss="modal" aria-label="Close">X</button>
                </div>
                <div class="modal-body">
-                    <div id="form-add-supplier-container">
+                    <div>
                          <table>
-                              <form method="POST" id="add-data" name="">
+                              <form method="POST" id="form-add-entercoupon-container">
                                    <tr>
-                                        <td>Tên nhà cung cấp</td>
-                                        <td><input type="text" id="name-supplier"></td>
+                                        <td>Tên nhà cung cấp:
+                                             <select id="select-supplier" name="supplier_id">
+                                                  
+                                             </select>
+                                        </td>
                                    </tr>
                                    <tr>
-                                        <td>Địa chỉ</td>
-                                        <td><input type="text" id="address-supplier"></td>
+                                        <td>Mã nhân viên</td>
+                                        <td><input type="number" id="staff-id"></td>
                                    </tr>
                                    <tr>
-                                        <td>Phí vận chuyển</td>
-                                        <td><input type="number" id="shipping-fee"></td>
+                                        <td>Ngày nhập hàng</td>
+                                        <td><input type="date" id="enter-day" name="created_at"></td>
                                    </tr>
                                    <tr>
-                                        <td>Giảm giá</td>
-                                        <td><input type="number" id="discount"></td>
+                                        <td>Số sản phẩm thêm:</td>
+                                        <td><input type="number" id="n-qty"></td>
+                                        <td><input type="button" name="qty-add" id="quantity-add" value="ok"></td>
                                    </tr>
+                                   <tr id="form-product-add">
+
+                                   </tr>
+
                                    <tr>
                                         <td>
-                                             Danh mục sản phẩm
-                                             <select name="" id="select">
-
-                                             </select>
+                                             <input type="button" name="add_entercoupon" id="btn-add-entercoupon-submit" value="submit">
                                         </td>
                                    </tr>
                               </form>
@@ -130,7 +135,7 @@ require_once('../layouts/header.php');
                     </div>
                </div>
                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-primary" name="add_catesupplier" id="btn-add-catesup-submit" >Submit</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" name="add_catesupplier" id="btn-add-catesup-submit">Submit</button>
                </div>
           </div>
      </div>

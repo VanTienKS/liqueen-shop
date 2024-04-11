@@ -29,6 +29,7 @@ require_once($baseUrl.'../utils/utility.php');
 <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
 <script src="../../assets/js/coupons.js"></script>
 <script src="../../assets/js/supplier.js"></script>
+<script src="../../assets/js/enter_coupon.js"></script>
 
 </head>
 <body>

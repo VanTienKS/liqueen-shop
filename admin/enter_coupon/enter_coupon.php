@@ -2,7 +2,7 @@
 require_once('../../database/Database.php');
 require_once('../../utils/App.php');
 
-class Supplier extends App
+class Enter_coupon extends App
 {
      function __construct()
      {
@@ -77,19 +77,27 @@ class Supplier extends App
 
      public function add()
      {
-          $name_supplier = $_POST['name_supplier'];
-          $address_supplier = $_POST['address_supplier'];
-          $shipping_fee = $_POST['shipping_fee'];
-          $discount_percent = $_POST['discount_percent'];
-          $category_id = $_POST['category_id'];
-          $query = "INSERT into supplier(name,address,shipping_fee,discount,category_id) value('$name_supplier','$address_supplier','$shipping_fee','$discount_percent','$category_id')";
-          $result = Database::getInstance()->execute($query);
-          $query0 = "SELECT * from supplier order by id desc";
-          $result1 = Database::getInstance()->execute($query0);
-          $row = mysqli_fetch_array($result1);
-          $this->renderJSON($row);
-          $query1 = "INSERT into supplier_category(supplier_id,category_id) value('" . $row['id'] . "','$category_id')";
-          $result2 = Database::getInstance()->execute($query1);
+          // $name_supplier = $_POST['name_supplier'];
+          // $address_supplier = $_POST['address_supplier'];
+          // $shipping_fee = $_POST['shipping_fee'];
+          // $discount_percent = $_POST['discount_percent'];
+          // $category_id = $_POST['category_id'];
+          // $query = "INSERT into supplier(name,address,shipping_fee,discount,category_id) value('$name_supplier','$address_supplier','$shipping_fee','$discount_percent','$category_id')";
+          // $result = Database::getInstance()->execute($query);
+          // $query0 = "SELECT * from supplier order by id desc";
+          // $result1 = Database::getInstance()->execute($query0);
+          // $row = mysqli_fetch_array($result1);
+          // $this->renderJSON($row);
+          // $query1 = "INSERT into supplier_category(supplier_id,category_id) value('" . $row['id'] . "','$category_id')";
+          // $result2 = Database::getInstance()->execute($query1);
+          $supplier_id = $_POST['supplier_id'];
+          $user_id = 1;
+          $createdAt = $_POST['created_at'];
+          $products = $_POST['products'];
+          foreach($products as $value){
+               
+          }
+          $this->renderJSON($products);
      }
 
      public function delete()
@@ -119,9 +127,9 @@ class Supplier extends App
           $row = mysqli_fetch_assoc($result);
           $this->renderJSON($row);
      }
-     public function displayCategoryInSelect()
+     public function displaySupplierInSelect()
      {
-          $sql_select = "SELECT * from category order by id asc";
+          $sql_select = "SELECT * from supplier order by id asc";
           $query = Database::getInstance()->execute($sql_select);
           $result = [];
           $index = 0;
@@ -130,5 +138,15 @@ class Supplier extends App
           }
           $this->renderJSON($result);
      }
+     public function getListProduct()  {
+          $sql_select = "SELECT * from product order by id asc";
+          $query = Database::getInstance()->execute($sql_select);
+          $result = [];
+          $index = 0;
+          while ($row = $query->fetch_assoc()) {
+            $result[$index++] = $row;
+          }
+          $this->renderJSON($result);
+        }
 }
-$supplier = new Supplier();
+$entercoupon = new Enter_coupon();

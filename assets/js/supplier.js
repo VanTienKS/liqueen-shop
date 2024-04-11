@@ -27,8 +27,9 @@ $(document).ready(function () {
       method: "POST",
       data: { id: id, name_supplier: name_supplier, address_supplier: address_supplier, shipping_fee: shipping_fee, discount_percent: discount_percent },
       success: function (data) {
-        display_supplier();
+        displaysupplier();
         alert("Sửa thành công");
+        displaysupplier();
       }
     });
   });
@@ -82,6 +83,7 @@ $(document).ready(function () {
       method: "POST",
       data: { supplier_id: supplier_id, category_id: category_id },
       success: function (data) {
+        $('#select-catesup').html(``);
         alert("Thêm danh mục sản phẩm thành công");
         displaysupplier();
       }
@@ -115,6 +117,7 @@ $(document).ready(function () {
       data: { name_supplier: name_supplier, address_supplier: address_supplier, shipping_fee: shipping_fee, discount_percent: discount_percent, category_id: category_id },
       success: function (data) {
         console.log(data);
+        $('#select').html(``);
         displaysupplier();
       }
     });

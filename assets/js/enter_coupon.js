@@ -13,26 +13,40 @@ function addNumberProduct(index, event) {
 }
 
 function getListProduct() {
-  $.post("enter_coupon/action.php", {n : 1}, (data) => {
+  $.post("enter_coupon.php/getListProduct", { n: 1 }, (data) => {
     listProduct = data;
   })
 }
 
-$(document).ready(function () {
-  //Init list product
-  getListProduct(); 
+function onSubmit() {
+  selectedIdProduct = [{index: 0, id: 113, number: 1}, {index: 0, id: 117, number: 1}]; 
+  let data = {
+    products: selectedIdProduct,
+    supplier_id: 22,
+    created_at: "2024-01-01"
+  }
+  
+  data.products = selectedIdProduct;
+  console.log("data: ", data);
 
-  $(document).on("click", "#btn-add-entercoupon", function () {
-    $("#form-add-entercoupon-container").toggle("hidden");
-    let pull_supplier = 1;
+  $.post('enter_coupon.php/add', data, function (response) {
+
+  });
+}
+
+$(document).ready(function () {
+  // Init list product
+  getListProduct();
+  console.log(listProduct);
+  $('#btn-add-entercoupon').click(function () {
     $.ajax({
-      url: "enter_coupon/action.php",
+      url: "enter_coupon.php/displaySupplierInSelect",
       method: "POST",
-      data: { pull_supplier: pull_supplier },
       success: function (data) {
+
         console.log(data);
         data.map((data, index) => {
-          $("#select-supplier").append(`<option value=${data.id} id="supplier-id"> ${data.name}</option>`);
+          $('#select-supplier').append(`<option value=${data.id} id="supplier-id">${data.id}-${data.name}</option>`);
         })
       }
     })
@@ -58,13 +72,11 @@ $(document).ready(function () {
         <td>Số lượng:<input type="number" name="product-qty" class="product-qty" onchange="addNumberProduct(${i}, event)"></td>
       </tr>`)
     }
+    // listProduct.map((item) => {
 
-    listProduct.map((item)=>{
-      
-    })
-
+    // })
     $.ajax({
-      url: "enter_coupon/action.php",
+      url: "enter_coupon.php/getListProduct",
       method: "POST",
       data: { n: n },
       success: function (data) {
@@ -74,6 +86,7 @@ $(document).ready(function () {
         })
       }
     })
+    console.log()
   });
 
   $(document).on("click", "#btn-add-entercoupon-submit", function () {
@@ -84,10 +97,6 @@ $(document).ready(function () {
     console.log(data_product);
   })
 
-  function onSubmit() {
-    alert("Submit");
-
-  }
   //Submit data
-  $('#btn-add-entercoupon-submit').on("click", onSubmit)
+  $('#btn-add-entercoupon-submit').on("click", onSubmit);
 });
