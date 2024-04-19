@@ -3,11 +3,11 @@ session_start();
 require_once($baseUrl.'../utils/utility.php');
     require_once($baseUrl.'../database/dbhelper.php');
     $user=getUserToken();
-    if($user == null)
-    {
-            header('Location:'.$baseUrl.' authen/login.php');
-            die();
-    } 
+    // if($user == null)
+    // {
+    //         header('Location:'.$baseUrl.' authen/login.php');
+    //         die();
+    // }
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +16,7 @@ require_once($baseUrl.'../utils/utility.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet"type="text/css" href="<?=$baseUrl?>/ass/css/dashboard.css">
+    <link rel="stylesheet"type="text/css" href="../../assets/css/admincss.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- Option 1: Include in HTML -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -25,6 +26,10 @@ require_once($baseUrl.'../utils/utility.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<script src="../../assets/js/coupons.js"></script>
+<script src="../../assets/js/supplier.js"></script>
+<script src="../../assets/js/enter_coupon.js"></script>
 
 </head>
 <body>
@@ -78,6 +83,24 @@ require_once($baseUrl.'../utils/utility.php');
                             <a class="nav-link" href ="<?=$baseUrl?>user">
                                 <i class="bi bi-folder"></i>
                                 Quản lý người dùng
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href ="<?=$baseUrl?>discount">
+                                <i class="bi bi-folder"></i>
+                                Mã giảm giá
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href ="<?=$baseUrl?>supplier">
+                                <i class="bi bi-folder"></i>
+                                Nhà cung cấp
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href ="<?=$baseUrl?>enter_coupon">
+                                <i class="bi bi-folder"></i>
+                                Phiếu nhập
                             </a>
                         </li>
                     </ul>
