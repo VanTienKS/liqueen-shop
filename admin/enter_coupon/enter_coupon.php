@@ -12,48 +12,39 @@ class Enter_coupon extends App
      public function getList()
      {
           $out_put = "";
-          $query = "SELECT * from supplier order by id desc";
+          $query = "SELECT * from enter_coupon where display=0 order by id desc";
           $sql_select = Database::getInstance()->execute($query);
-          // $query1 = "SELECT * from supplier_category order by id asc";
-          // $sql_select1 = Database::getInstance()->execute($query1);
           $out_put .= "
     <div>
-      <table border=1 width=100%>
+    <table width=100% class='table table-striped table-hover table-discount'>
         <tr>
-            <td>STT</td>
-            <td>ID Nhà cung cấp</td>
-            <td>Tên nhà cung cấp</td>
-            <td>Địa chỉ</td>
-            <td>Phí vận chuyển</td>
-            <td>Giảm giá</td>
-            <td>ID danh mục sản phẩm</td>
-            <td>Quản lý</td>
+            <td class='font-weight-bold'>STT</td>
+            <td class='font-weight-bold'>Nhà cung cấp</td>
+            <td class='font-weight-bold'>Nhân viên</td>
+            <td class='font-weight-bold'>Ngày nhập</td>
+            <td class='font-weight-bold'>Chi tiết</td>
+            <td class='font-weight-bold'>Quản lý</td>
         </tr>
   ";
           if (mysqli_num_rows($sql_select) > 0) {
                $i = 0;
+
                while ($row = mysqli_fetch_array($sql_select)) {
+                    $sql_suppliername = "SELECT * from supplier where id='" . $row['supplier_id'] . "'";
+                    $query_suppliername = Database::getInstance()->execute($sql_suppliername);
+                    $supplier = $query_suppliername->fetch_assoc();
+                    $sql_staff = "SELECT * from user where id='" . $row['staff_id'] . "'";
+                    $query_staffname = Database::getInstance()->execute($sql_staff);
+                    $staff = $query_staffname->fetch_assoc();
                     $i++;
-                    $query1 = "SELECT * from supplier_category where supplier_id='" . $row['id'] . "' order by id asc";
-                    $sql_select1 = Database::getInstance()->execute($query1);
                     $out_put .= "
                          <tr>
                               <td>" . $i . "</td>
-                              <td>" . $row['id'] . "</td>
-                              <td>" . $row['name'] . "</td>
-                              <td>" . $row['address'] . "</td>
-                              <td>" . $row['shipping_fee'] . "</td>
-                              <td>" . $row['discount'] . "</td>
-                              <td>
-                              ";
-                    while ($row1 = mysqli_fetch_array($sql_select1)) {
-                         $out_put .= "
-                         " . $row1['category_id'] . "  ";
-                    };
-
-                    $out_put .= "<button data-id_option='" . $row['id'] . "' data-toggle='modal' data-target='#modal-option' class='option-data' name='edit'>Thêm</button></td>
-                    </td>
-            <td><button data-id_xoa='" . $row['id'] . "' class='del-supplier-data' name='delete_data'>Xóa</button>|<button data-id_sua='" . $row['id'] . "' data-toggle='modal' data-target='#modal-edit-supplier' class='edit-supplier-data'  id='" . $row['id'] . "'>Sửa</button></td>
+                              <td>" . $row['supplier_id'] . "-" . $supplier['name'] . "</td>
+                              <td>" . $row['staff_id'] . "-" . $staff['name'] . "</td>
+                              <td>" . $row['enter_day'] . "</td>
+                              <td><button data-id_view='" . $row['id'] . "' data-toggle='modal' data-target='#modal-view' class='view-data btn btn-primary' name='edit'>Xem</button></td>
+            <td><button data-id_xoa='" . $row['id'] . "' class='del-entercoupon-data btn btn-danger' name='delete_data'>Xóa</button> <button data-id_sua='" . $row['id'] . "' data-toggle='modal' data-target='#modal-edit-entercoupon' class='edit-entercoupon-data btn btn-warning'  id='" . $row['id'] . "'>Sửa</button></td>
         </tr>
       ";
                }
@@ -75,49 +66,41 @@ class Enter_coupon extends App
           $result = Database::getInstance()->execute($query);
      }
 
+     public function addEnterCoupon()
+     {
+          $supplier_id = $_POST['supplier_id'];
+          $user_id = $_POST['user_id'];
+          $createdAt = $_POST['created_at'];
+          $query1 = "INSERT into enter_coupon(supplier_id,staff_id,enter_day) value('$supplier_id','$user_id','$createdAt')";
+          $result = Database::getInstance()->execute($query1);
+     }
      public function add()
      {
-          // $name_supplier = $_POST['name_supplier'];
-          // $address_supplier = $_POST['address_supplier'];
-          // $shipping_fee = $_POST['shipping_fee'];
-          // $discount_percent = $_POST['discount_percent'];
-          // $category_id = $_POST['category_id'];
-          // $query = "INSERT into supplier(name,address,shipping_fee,discount,category_id) value('$name_supplier','$address_supplier','$shipping_fee','$discount_percent','$category_id')";
-          // $result = Database::getInstance()->execute($query);
-          // $query0 = "SELECT * from supplier order by id desc";
-          // $result1 = Database::getInstance()->execute($query0);
-          // $row = mysqli_fetch_array($result1);
-          // $this->renderJSON($row);
-          // $query1 = "INSERT into supplier_category(supplier_id,category_id) value('" . $row['id'] . "','$category_id')";
-          // $result2 = Database::getInstance()->execute($query1);
-          $supplier_id = $_POST['supplier_id'];
-          $user_id = 1;
-          $createdAt = $_POST['created_at'];
-          $products = $_POST['products'];
-          foreach($products as $value){
-               
-          }
-          $this->renderJSON($products);
+          $product_id = $_POST['product_id'];
+          $product_qty = $_POST['product_qty'];
+          $sql_entercoupon = "SELECT * from enter_coupon order by id desc";
+          $query = Database::getInstance()->execute($sql_entercoupon);
+          $row = $query->fetch_assoc();
+          $sql_insert = "INSERT into entry_details(entercoupon_id,supplier_id,product_id,product_qty) values('" . $row['id'] . "','".$row['supplier_id']."','$product_id','$product_qty')";
+          $result = Database::getInstance()->execute($sql_insert);
      }
 
      public function delete()
      {
-          $id = $_POST['id'];
-          $query1 = "DELETE  from supplier_category where supplier_id=$id";
-          $result1 = Database::getInstance()->execute($query1);
-          $query = "DELETE from supplier where id=$id";
+          $id = $_POST['id_xoa'];
+          $query = "UPDATE enter_coupon set display=1 where id=$id";
           $result = Database::getInstance()->execute($query);
      }
 
      public function update()
      {
           $id = $_POST['id'];
-          $name_supplier = $_POST['name_supplier'];
-          $address_supplier = $_POST['address_supplier'];
-          $shipping_fee = $_POST['shipping_fee'];
-          $discount_percent = $_POST['discount_percent'];
-          $sql_editcode = "UPDATE supplier set name='" . $name_supplier . "',address= '" . $address_supplier . "', shipping_fee='" . $shipping_fee . "', discount='" . $discount_percent . "' where id=$id";
-          $result = Database::getInstance()->execute($sql_editcode);
+          $supplier_id = $_POST['supplier'];
+          $staff_id = $_POST['staff'];
+          $sql_editcode_entercoupon = "UPDATE enter_coupon set supplier_id='" . $supplier_id . "',staff_id='" . $staff_id . "' where id=$id";
+          $result = Database::getInstance()->execute($sql_editcode_entercoupon);
+          $sql_edit_entryDetails = "UPDATE entry_details set supplier_id='" . $supplier_id . "' where id=$id";
+          $resultentry = Database::getInstance()->execute($sql_edit_entryDetails);
      }
      public function getSupplierById()
      {
@@ -138,15 +121,69 @@ class Enter_coupon extends App
           }
           $this->renderJSON($result);
      }
-     public function getListProduct()  {
+     public function displayUserInSelect()
+     {
+          $sql_select = "SELECT * from user order by id asc";
+          $query = Database::getInstance()->execute($sql_select);
+          $result = [];
+          $index = 0;
+          while ($row = $query->fetch_assoc()) {
+               $result[$index++] = $row;
+          }
+          $this->renderJSON($result);
+     }
+     public function getListProduct()
+     {
           $sql_select = "SELECT * from product order by id asc";
           $query = Database::getInstance()->execute($sql_select);
           $result = [];
           $index = 0;
           while ($row = $query->fetch_assoc()) {
-            $result[$index++] = $row;
+               $result[$index++] = $row;
           }
           $this->renderJSON($result);
-        }
+     }
+     // Chi tiết phiếu nhập
+     public function viewEntryDetails()
+     {
+          $id = $_POST['id_view'];
+          $sql = "SELECT * from entry_details where entercoupon_id=$id";
+          $query = Database::getInstance()->execute($sql);
+          $out_put = "";
+          $out_put .= "
+    <div>
+    <table width=100% class='table table-striped table-hover table-discount'>
+        <tr>
+            <td class='font-weight-bold'>STT</td>
+            <td class='font-weight-bold'>Sản phẩm</td>
+            <td class='font-weight-bold'>Số lượng</td>
+        </tr>
+  ";
+          if (mysqli_num_rows($query) > 0) {
+               $i = 0;
+
+               while ($row = mysqli_fetch_array($query)) {
+                    $sql_product = "SELECT * from product where id='" . $row['product_id'] . "'";
+                    $query_product = Database::getInstance()->execute($sql_product);
+                    $product = $query_product->fetch_assoc();
+                    $i++;
+                    $out_put .= "
+                         <tr>
+                              <td>" . $i . "</td>
+                              <td>" . $row['product_id'] . "-" . $product['name'] . "</td>
+                              <td>" . $row['product_qty'] . "</td>
+        </tr>
+      ";
+               }
+          } else {
+               $out_put .= "
+    <tr>
+      <td>Dữ liệu chưa được tải</td>
+    </tr>
+  ";
+          }
+          $out_put .= "</table></div>";
+          echo $out_put;
+     }
 }
 $entercoupon = new Enter_coupon();

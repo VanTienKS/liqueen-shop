@@ -24,3 +24,31 @@
   border: none !important;
   box-shadow: none !important;
 }
+
+.btn-close {
+  outline: none !important;
+  border: none !important;
+  right: 0;
+  top: 0;
+}
+
+.btn-close:focus {
+  outline: none !important;
+  border: none !important;
+
+}
+
+.modal-title{
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.btn {
+  outline: none !important;
+  border: none !important;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 700;
+}

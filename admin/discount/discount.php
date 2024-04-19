@@ -12,18 +12,18 @@ class Discount extends App
      public function getList()
      {
           $out_put = "";
-          $query = "SELECT * from discount order by id desc";
+          $query = "SELECT * from discount where display=0 order by id desc";
           $sql_select = Database::getInstance()->execute($query);
           $out_put .= "
     <div>
-      <table border=1 width=100%>
+      <table width=100% class='table table-striped table-hover table-discount'>
         <tr>
-            <td>Mã giảm giá</td>
-            <td>Tên mã giảm giá</td>
-            <td>% giảm giá</td>
-            <td>Ngày bắt đầu</td>
-            <td>Ngày kết thúc</td>
-            <td>Quản lý</td>
+            <td class='font-weight-bold'>Mã giảm giá</td>
+            <td class='font-weight-bold'>Tên mã giảm giá</td>
+            <td class='font-weight-bold'>% giảm giá</td>
+            <td class='font-weight-bold'>Ngày bắt đầu</td>
+            <td class='font-weight-bold'>Ngày kết thúc</td>
+            <td class='font-weight-bold'>Quản lý</td>
         </tr>
   ";
           if (mysqli_num_rows($sql_select) > 0) {
@@ -35,7 +35,9 @@ class Discount extends App
             <td>" . $row['discount_percentage'] . "</td>
             <td>" . $row['start_day'] . "</td>
             <td>" . $row['finish_date'] . "</td>
-            <td><button data-id_xoa='" . $row['id'] . "' class='del_data' name='delete_data'>Xóa</button>|<button data-id_sua='" . $row['id'] . "' data-toggle='modal' data-target='#modal-edit' class='edit-data' name='edit' id='" . $row['id'] . "'>Sửa</button></td>
+            <td>
+            <button data-id_xoa='" . $row['id'] . "' class='del_data btn btn-danger' name='delete_data'>Xóa</button> 
+            <button data-id_sua='" . $row['id'] . "' data-toggle='modal' data-target='#modal-edit' class='edit-data btn btn-warning' name='edit' id='" . $row['id'] . "'>Sửa</button></td>
         </tr>
       ";
                }
@@ -52,12 +54,11 @@ class Discount extends App
 
      public function add()
      {
-          $code = $_POST['id'];
           $name = $_POST['name_code'];
           $percentcode = $_POST['percent_code'];
           $firstday = $_POST['start_day'];
           $finishday = $_POST['end_day'];
-          $query = "INSERT into discount(id,name,discount_percentage,start_day,finish_date) value('$code','$name','$percentcode','$firstday','$finishday')";
+          $query = "INSERT into discount(name,discount_percentage,start_day,finish_date) value('$name','$percentcode','$firstday','$finishday')";
 
           $result = Database::getInstance()->execute($query);
      }
@@ -65,7 +66,7 @@ class Discount extends App
      public function delete()
      {
           $id = $_POST['id'];
-          $query = "DELETE from discount where id=$id";
+          $query = "UPDATE discount set display=1 where id=$id";
           $result = Database::getInstance()->execute($query);
      }
 

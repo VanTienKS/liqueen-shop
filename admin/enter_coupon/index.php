@@ -4,8 +4,8 @@ $baseUrl = '../';
 require_once('../layouts/header.php');
 ?>
 
-<div class="d-flex justify-content-between align-items-center">
-     <h2>Phiếu nhập</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+     <div class="page-title text-info">Phiếu nhập</div>
      <div><button class="btn-add btn btn-success" data-toggle="modal" data-target="#modal-add-entercoupon" id="btn-add-entercoupon">Thêm</button></div>
 </div>
 
@@ -15,40 +15,33 @@ require_once('../layouts/header.php');
 <div class="modal fade" id="modal-edit-entercoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-               <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Sửa nhà cung cấp</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-dismiss="modal" aria-label="Close">X</button>
+               <div class="modal-header position-relative">
+                    <div class="modal-title font-bold text-success" id="exampleModalLabel">Sửa phiếu nhập</div>
+                    <button type="button" class="btn-close btn position-absolute" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">
+                         <i class="bi bi-x-circle-fill text-danger" style="font-size: 2rem"></i>
+                    </button>
+
                </div>
                <div class="modal-body">
-                    <div id="form-edit-entercoupon-container">
-                         <table>
-                              <form method="POST" id="add-data" name="">
-                                   <tr>
-                                        <td>Mã nhà cung cấp</td>
-                                        <td><input type="number" id="id-edit-entercoupon" disabled=disabled></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Tên nhà cung cấp</td>
-                                        <td><input type="text" id="name-edit-entercoupon"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Địa chỉ</td>
-                                        <td><input type="text" id="address-edit-entercoupon"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Phí vận chuyển</td>
-                                        <td><input type="number" id="shipping-edit-fee"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Giảm giá</td>
-                                        <td><input type="number" id="discount-edit"></td>
-                                   </tr>
-                              </form>
-                         </table>
+                    <div id="form-edit-entercoupon-container" class="w-100 d-flex flex-column justify-content-center p-3">
+                         <form method="POST" id="form-add-data" name="">
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">ID Phiếu nhập</div>
+                                   <input type="text" id="id_sua" disabled=disabled class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Nhà cung cấp</div>
+                                   <select name="" id="name-edit-entercoupon-supplier" class="form-control w-50"></select>
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Nhân viên</div>
+                                   <select name="" id="name-edit-entercoupon-staff" class="form-control w-50"></select>
+                              </div>
+                         </form>
                     </div>
                </div>
                <div class="modal-footer">
-                    <button type="button" name="edit_supplier" id="btn-editsupplier-submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                    <button type="button" name="edit_supplier" id="btn-editentercoupon-submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
                </div>
           </div>
      </div>
@@ -57,81 +50,68 @@ require_once('../layouts/header.php');
 <div class="modal fade" id="modal-add-entercoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-               <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Thêm phiếu nhập</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-dismiss="modal" aria-label="Close">X</button>
+               <div class="modal-header position-relative">
+                    <div class="modal-title font-bold text-success" id="exampleModalLabel">Thêm phiếu nhập</div>
+                    <button type="button" class="btn-close btn position-absolute" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">
+                         <i class="bi bi-x-circle-fill text-danger" style="font-size: 2rem"></i>
+                    </button>
+
                </div>
                <div class="modal-body">
-                    <div>
-                         <table>
-                              <form method="POST" id="form-add-entercoupon-container">
-                                   <tr>
-                                        <td>Tên nhà cung cấp:
-                                             <select id="select-supplier" name="supplier_id">
-                                                  
-                                             </select>
-                                        </td>
-                                   </tr>
-                                   <tr>
-                                        <td>Mã nhân viên</td>
-                                        <td><input type="number" id="staff-id"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Ngày nhập hàng</td>
-                                        <td><input type="date" id="enter-day" name="created_at"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Số sản phẩm thêm:</td>
-                                        <td><input type="number" id="n-qty"></td>
-                                        <td><input type="button" name="qty-add" id="quantity-add" value="ok"></td>
-                                   </tr>
-                                   <tr id="form-product-add">
+                    <div id="form-edit-entercoupon-container" class="w-100 d-flex flex-column justify-content-center p-3">
+                         <form method="POST" id="form-add-data" name="">
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Tên nhà cung cấp</div>
+                                   <select id="select-supplier" name="supplier_id" class="form-control w-50">
 
-                                   </tr>
-
-                                   <tr>
-                                        <td>
-                                             <input type="button" name="add_entercoupon" id="btn-add-entercoupon-submit" value="submit">
-                                        </td>
-                                   </tr>
-                              </form>
-                         </table>
+                                   </select>
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Nhân viên</div>
+                                   <select id="staff-id" name="staff-id" class="form-control w-50"></select>
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Ngày nhập hàng</div>
+                                   <input type="date" id="enter-day" name="created_at" disabled=disabled class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Bạn đã kiểm tra nhà cung cấp và nhân viên?</div>
+                                   <input type="button" id="check-to-add-product" value="Ok" class="btn-success">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Tên sản phẩm</div>
+                                   <select id="select-name-product" name="select-name-product" class="form-control w-50"></select>
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Số lượng</div>
+                                   <input type="number" name="product-qty" id="product-qty" class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                              <input type="button" name="product-qty-add" id="product-update" value="Thêm" class="form-control w-30 btn-success">
+                              </div>
+                         </form>
                     </div>
                </div>
                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-primary" name="add_supplier" id="btn-addsupplier-submit">Submit</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-primary" name="add_entercoupon" id="btn-add-entercoupon-submit">Xong</button>
                </div>
           </div>
      </div>
 </div>
 <!-- Modal option -->
-<div class="modal fade" id="modal-option" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-               <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Thêm danh mục sản phẩm</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-dismiss="modal" aria-label="Close">X</button>
+          <div class="modal-header position-relative">
+                    <div class="modal-title font-bold text-success" id="exampleModalLabel">Chi tiết phiếu nhập</div>
+                    <button type="button" class="btn-close btn position-absolute" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">
+                         <i class="bi bi-x-circle-fill text-danger" style="font-size: 2rem"></i>
+                    </button>
+
                </div>
                <div class="modal-body">
-                    <div id="form-add-supplier-container">
-                         <table>
-                              <form method="POST" id="add-catesup-data" name="">
-                                   <tr>
-                                        <td>
-                                             ID NHÀ CUNG CẤP:
-                                             <input type="number" disabled=disabled id="NCC">
-                                        </td>
-                                   </tr>
-                                   <tr>
-                                        <td>
-                                             Danh mục sản phẩm
-                                             <select name="" id="select-catesup">
+                    <div id="form-view-entrydetails-container">
 
-                                             </select>
-                                        </td>
-                                   </tr>
-                              </form>
-                         </table>
                     </div>
                </div>
                <div class="modal-footer">

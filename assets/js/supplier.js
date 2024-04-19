@@ -1,4 +1,16 @@
 $(document).ready(function () {
+  //Xem danh mục sản phẩm cung cấp
+  $(document).on('click','.view-data',function(){
+    let id_view=$(this).data('id_view');
+    $.ajax({
+      url:"supplier.php/viewCategorySupply",
+      method:"POST",
+      data:{id_view:id_view},
+      success:function(data){
+        $('#view-supplier-category').html(data);
+      }
+    })
+  })
   // Sửa nhà cung cấp
   $(document).on('click', '.edit-supplier-data', function () {
     let id = $(this).data('id_sua');
@@ -47,15 +59,17 @@ $(document).ready(function () {
   //Xóa nhà cung cấp
   $(document).on('click', '.del-supplier-data', function () {
     let id = $(this).data('id_xoa');
-    $.ajax({
-      url: "supplier.php/delete",
-      method: "POST",
-      data: { id: id },
-      success: function (data) {
-        alert('Xóa nhà cung cấp thành công');
-        displaysupplier();
-      }
-    })
+    if (confirm("Bạn muốn xóa")) {
+      $.ajax({
+        url: "supplier.php/delete",
+        method: "POST",
+        data: { id: id },
+        success: function (data) {
+          alert('Xóa nhà cung cấp thành công');
+          displaysupplier();
+        }
+      })
+    }
   });
   // Hiển thị danh mục sản phẩm trong thẻ select-catesup
   $(document).on('click', '.option-data', function () {

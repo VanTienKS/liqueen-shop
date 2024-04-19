@@ -71,12 +71,11 @@ $(document).ready(function () {
     var currentDate = d.getFullYear() + '-' +
       (month < 10 ? '0' : '') + month + '-' +
       (day < 10 ? '0' : '') + day;
-    let id = $('#codeadd').val();
     let name_code = $('#nameadd').val();
     let percent_code = $('#percentcodeadd').val();
     let start_day = $('#startdayadd').val();
     let end_day = $('#enddayadd').val();
-    if (id == '' || name_code == '' || percent_code == '' || start_day == '' || end_day == '') {
+    if ( name_code == '' || percent_code == '' || start_day == '' || end_day == '') {
       alert("Không được bỏ trống các trường");
     } else if (percent_code < 1 || percent_code > 90) {
       alert("% giảm giá không phù hợp");
@@ -90,7 +89,7 @@ $(document).ready(function () {
       $.ajax({
         url: "discount.php/add",
         method: "POST",
-        data: { id: id, name_code: name_code, percent_code: percent_code, start_day: start_day, end_day: end_day },
+        data: { name_code: name_code, percent_code: percent_code, start_day: start_day, end_day: end_day },
         success: function (data) {
           fetch_data();
           alert("Thêm thành công");

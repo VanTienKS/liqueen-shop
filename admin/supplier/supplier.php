@@ -12,30 +12,30 @@ class Supplier extends App
      public function getList()
      {
           $out_put = "";
-          $query = "SELECT * from supplier order by id desc";
+          $query = "SELECT * from supplier where display=0 order by id desc";
           $sql_select = Database::getInstance()->execute($query);
           // $query1 = "SELECT * from supplier_category order by id asc";
           // $sql_select1 = Database::getInstance()->execute($query1);
           $out_put .= "
     <div>
-      <table border=1 width=100%>
+      <table width=100% class='table table-striped table-hover table-supplier'>
         <tr>
-            <td>STT</td>
-            <td>ID Nhà cung cấp</td>
-            <td>Tên nhà cung cấp</td>
-            <td>Địa chỉ</td>
-            <td>Phí vận chuyển</td>
-            <td>Giảm giá</td>
-            <td>ID danh mục sản phẩm</td>
-            <td>Quản lý</td>
+            <td class='font-weight-bold'>STT</td>
+            <td class='font-weight-bold'>ID Nhà cung cấp</td>
+            <td class='font-weight-bold'>Tên nhà cung cấp</td>
+            <td class='font-weight-bold'>Địa chỉ</td>
+            <td class='font-weight-bold'>Phí vận chuyển</td>
+            <td class='font-weight-bold'>Giảm giá</td>
+            <td class='font-weight-bold'>Danh mục sản phẩm cung cấp</td>
+            <td class='font-weight-bold'>Quản lý</td>
         </tr>
   ";
           if (mysqli_num_rows($sql_select) > 0) {
                $i = 0;
                while ($row = mysqli_fetch_array($sql_select)) {
                     $i++;
-                    $query1 = "SELECT * from supplier_category where supplier_id='" . $row['id'] . "' order by id asc";
-                    $sql_select1 = Database::getInstance()->execute($query1);
+                    // $query1 = "SELECT * from supplier_category where supplier_id='" . $row['id'] . "' order by id asc";
+                    // $sql_select1 = Database::getInstance()->execute($query1);
                     $out_put .= "
                          <tr>
                               <td>" . $i . "</td>
@@ -46,14 +46,15 @@ class Supplier extends App
                               <td>" . $row['discount'] . "</td>
                               <td>
                               ";
-                    while ($row1 = mysqli_fetch_array($sql_select1)) {
-                         $out_put .= "
-                         " . $row1['category_id'] . "  ";
-                    };
+                    // while ($row1 = mysqli_fetch_array($sql_select1)) {
+                    //      $out_put .= "
+                    //      " . $row1['category_id'] . "  ";
+                    // };
 
-                    $out_put .= "<button data-id_option='" . $row['id'] . "' data-toggle='modal' data-target='#modal-option' class='option-data' name='edit'>Thêm</button></td>
+                    $out_put .= "<button data-id_option='" . $row['id'] . "' data-toggle='modal' data-target='#modal-option' class='option-data btn btn-success' name='edit'>Thêm</button> 
+                    <button data-id_view='" . $row['id'] . "' data-toggle='modal' data-target='#modal-view' class='view-data btn btn-primary' name='edit'>Xem</button></td>
                     </td>
-            <td><button data-id_xoa='" . $row['id'] . "' class='del-supplier-data' name='delete_data'>Xóa</button>|<button data-id_sua='" . $row['id'] . "' data-toggle='modal' data-target='#modal-edit-supplier' class='edit-supplier-data'  id='" . $row['id'] . "'>Sửa</button></td>
+            <td><button data-id_xoa='" . $row['id'] . "' class='del-supplier-data btn btn-danger' name='delete_data'>Xóa</button> <button data-id_sua='" . $row['id'] . "' data-toggle='modal' data-target='#modal-edit-supplier' class='edit-supplier-data btn btn-warning'  id='" . $row['id'] . "'>Sửa</button></td>
         </tr>
       ";
                }
@@ -95,10 +96,51 @@ class Supplier extends App
      public function delete()
      {
           $id = $_POST['id'];
-          $query1 = "DELETE  from supplier_category where supplier_id=$id";
-          $result1 = Database::getInstance()->execute($query1);
-          $query = "DELETE from supplier where id=$id";
+          $query = "UPDATE supplier set display=1 where id=$id";
           $result = Database::getInstance()->execute($query);
+          // $query1 = "DELETE  from supplier_category where supplier_id=$id";
+          // $result1 = Database::getInstance()->execute($query1);
+          // $query = "DELETE from supplier where id=$id";
+          // $result = Database::getInstance()->execute($query);
+     }
+     public function viewCategorySupply()
+     {
+          $id = $_POST['id_view'];
+          $sql = "SELECT * from supplier_category where supplier_id=$id";
+          $query = Database::getInstance()->execute($sql);
+          $out_put = "";
+          $out_put .= "
+    <div>
+    <table width=100% class='table table-striped table-hover table-supplier'>
+        <tr>
+            <td>STT</td>
+            <td>Danh mục sản phẩm</td>
+        </tr>
+  ";
+          if (mysqli_num_rows($query) > 0) {
+               $i = 0;
+
+               while ($row = mysqli_fetch_array($query)) {
+                    $sql_product = "SELECT * from category where id='" . $row['category_id'] . "'";
+                    $query_product = Database::getInstance()->execute($sql_product);
+                    $category = $query_product->fetch_assoc();
+                    $i++;
+                    $out_put .= "
+                         <tr>
+                              <td>" . $i . "</td>
+                              <td>" . $row['category_id'] . "-" . $category['name'] . "</td>
+        </tr>
+      ";
+               }
+          } else {
+               $out_put .= "
+    <tr>
+      <td>Dữ liệu chưa được tải</td>
+    </tr>
+  ";
+          }
+          $out_put .= "</table></div>";
+          echo $out_put;
      }
 
      public function update()

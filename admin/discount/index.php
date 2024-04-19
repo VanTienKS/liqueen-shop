@@ -3,8 +3,8 @@ $title = 'Quản Lý Mã Giảm Giá';
 $baseUrl = '../';
 require_once('../layouts/header.php');
 ?>
-<h2>Mã giảm giá</h2>
-<div class="d-flex justify-content-between align-items-center">
+<div class="d-flex justify-content-between align-items-center mb-3">
+     <div class="page-title text-info">Mã giảm giá</div>
      <div><button class="btn-add btn btn-success" data-toggle="modal" data-target="#modal-add" id="btn-add">Thêm</button></div>
 </div>
 <div id="load_data"></div>
@@ -12,36 +12,37 @@ require_once('../layouts/header.php');
 <div class='modal fade' id='modal-edit' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden="true">
      <div class='modal-dialog modal-dialog-centered'>
           <div class='modal-content'>
-               <div class='modal-header'>
-                    <h5 class='modal-title' id='exampleModalLabel'>Sửa mã giảm giá</h5>
-                    <button type='button' class='btn-close' data-bs-dismiss='modal' data-dismiss="modal" aria-label='Close'>X</button>
+          <div class="modal-header position-relative">
+                    <div class="modal-title font-bold text-success" id="exampleModalLabel">Sửa mã giảm giá</div>
+                    <button type="button" class="btn-close btn position-absolute" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">
+                         <i class="bi bi-x-circle-fill text-danger" style="font-size: 2rem"></i>
+                    </button>
+
                </div>
                <div class='modal-body'>
-                    <div id='form-edit-container'>
-                         <table>
-                              <form method='POST' id='edit_data'>
-                                   <tr>
-                                        <td>Mã giảm giá</td>
-                                        <td><input type='text' id='code' disabled='disabled' name='id_edit' value=""></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Tên mã giảm giá</td>
-                                        <td><input type='text' id='namecode' name='name_code' value=""></td>
-                                   </tr>
-                                   <tr>
-                                        <td>% giảm giá</td>
-                                        <td><input type='number' id='percentcode' name='percent_code' value=""></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Ngày bắt đầu</td>
-                                        <td><input type='date' id='firstday' name='first_day' value=""></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Ngày kết thúc</td>
-                                        <td><input type='date' id='finishday' name='finish_day' value=""></td>
-                                   </tr>
-                              </form>
-                         </table>
+                    <div id="form-edit-container" class="w-100 d-flex flex-column justify-content-center p-3">
+                         <form method="POST" id="edit-data" name="">
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Mã giảm giá</div>
+                                   <input type='text' id='code' disabled='disabled' name='id_edit' value="" class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Tên mã giảm giá</div>
+                                   <input type='text' id='namecode' name='name_code' value="" class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Khuyến mãi (%)</div>
+                                   <input type='number' id='percentcode' name='percent_code' value="" class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Ngày bắt đầu</div>
+                                   <input type='date' id='firstday' name='first_day' value="" class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Ngày kết thúc</div>
+                                   <input type='date' id='finishday' name='finish_day' value="" class="form-control w-50">
+                              </div>
+                         </form>
                     </div>
                </div>
                <div class='modal-footer'>
@@ -54,36 +55,33 @@ require_once('../layouts/header.php');
 <div class=" modal fade" id="modal-add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-               <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Thêm mã giảm giá</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">X</button>
+               <div class="modal-header position-relative">
+                    <div class="modal-title font-bold text-success" id="exampleModalLabel">Thêm mã giảm giá</div>
+                    <button type="button" class="btn-close btn position-absolute" data-bs-dismiss="modal" aria-label="Close" data-dismiss="modal">
+                         <i class="bi bi-x-circle-fill text-danger" style="font-size: 2rem"></i>
+                    </button>
+
                </div>
                <div class="modal-body">
-                    <div id="form-container">
-                         <table>
-                              <form method="POST" id="form-add-data" name="">
-                                   <tr>
-                                        <td>Mã giảm giá</td>
-                                        <td><input type="number" id="codeadd" name="code"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Tên mã giảm giá</td>
-                                        <td><input type="text" id="nameadd" name="name"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>% giảm giá</td>
-                                        <td><input type="number" id="percentcodeadd" name="percent_code"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Ngày bắt đầu</td>
-                                        <td><input type="date" id="startdayadd" name="begin_day"></td>
-                                   </tr>
-                                   <tr>
-                                        <td>Ngày kết thúc</td>
-                                        <td><input type="date" id="enddayadd" name="end_day"></td>
-                                   </tr>
-                              </form>
-                         </table>
+                    <div id="form-container" class="w-100 d-flex flex-column justify-content-center p-3">
+                         <form method="POST" id="form-add-data" name="">
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Tên mã giảm giá</div>
+                                   <input type="text" id="nameadd" name="name" class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Khuyến mãi (%)</div>
+                                   <input type="number" id="percentcodeadd" name="percent_code" class="form-control w-50" min='0' max=90>
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Ngày bắt đầu</div>
+                                   <input type="date" id="startdayadd" name="begin_day" class="form-control w-50">
+                              </div>
+                              <div class="d-flex form-group align-items-center justify-content-between">
+                                   <div class="font-weight-bold">Ngày kết thúc</div>
+                                   <input type="date" id="enddayadd" name="end_day" class="form-control w-50">
+                              </div>
+                         </form>
                     </div>
                </div>
                <div class="modal-footer">
