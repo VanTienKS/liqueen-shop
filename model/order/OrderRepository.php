@@ -67,7 +67,7 @@ class OrderRepository extends BaseRepository
 			$staff_id = "NULL";
 		}
 
-		$sql = "INSERT INTO `order` (created_date, status, user_id, payment_method, shipping_fee, delivered_date, cus_fullname, cus_mobile, cus_address, total_money)  VALUES                     ('$created_date', $order_status_id, $customer_id, '$payment_method', '$shipping_fee', '$delivered_date', '$shipping_fullname', '$shipping_mobile', $shipping_fee, '$delivered_date')";
+		$sql = "INSERT INTO `order` (created_date, status, user_id, payment_method, shipping_fee, delivered_date, cus_fullname, cus_mobile, cus_address, total_money)  VALUES ('$created_date', $order_status_id, $customer_id, '$payment_method', '$shipping_fee', '$delivered_date', '$shipping_fullname', '$shipping_mobile', $shipping_fee, '$delivered_date')";
 		if ($conn->query($sql) === TRUE) {
 			$last_id = $conn->insert_id; //chỉ cho auto increment
 			return $last_id;

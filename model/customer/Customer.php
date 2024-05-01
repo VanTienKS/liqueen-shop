@@ -1,5 +1,5 @@
 <?php
-    class Customer{
+       class Customer{
         protected $id;
         protected $role_id;
         protected $name;
@@ -8,6 +8,7 @@
         protected $password;
         protected $updated_at;
         protected $created_at;
+        
         protected $is_active;
         protected $address;
         protected $ward_id;
