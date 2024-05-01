@@ -3,6 +3,7 @@ session_start();
 require_once('../../utils/utility.php');
 require_once('../../database/dbhelper.php');
 
+
 $user = getUserToken();
 if($user == null) {
 	die();
@@ -23,4 +24,5 @@ function deleteProduct() {
 	$updated_at = date("Y-m-d H:i:s");
 	$sql = "update Product set deleted = 1, updated_at = '$updated_at' where id = $id";
 	execute($sql);
+
 }

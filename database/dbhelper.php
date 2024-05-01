@@ -51,3 +51,57 @@ function executeResult($sql) {
 
 	return $data;
 }
+function excuteQuery($sql)
+{
+    $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+    
+    // Kiểm tra kết nối
+    if (!$conn) {
+        die("Không thể kết nối đến cơ sở dữ liệu: " . mysqli_connect_error());
+    }
+
+    // Đặt bảng mã UTF-8
+    if (!mysqli_set_charset($conn, "utf8")) {
+        echo "Không thể thiết lập bảng mã: " . mysqli_error($conn);
+    }
+
+    // Thực thi truy vấn
+    $result = mysqli_query($conn, $sql);
+
+    // Kiểm tra lỗi thực thi truy vấn
+    if (!$result) {
+        echo "Không thể thực thi truy vấn: " . mysqli_error($conn);
+    }
+
+    // Đóng kết nối
+    mysqli_close($conn);
+
+    return $result;
+}
+
+function checkPrivilege($uri = false) {
+	
+    $uri = $uri != false ? $uri : $_SERVER['REQUEST_URI'];
+	if(empty($_SESSION['current_user']['privileges'])){
+		        return false;
+		    }
+    // $privileges = array(
+	// 	"category_index\.php$",
+	// 	"product_index\.php$",
+	// 	"feedback_index\.php$"
+	// );
+	$privileges = $_SESSION['current_user']['privileges'];
+    $privileges = implode("|", $privileges);
+    preg_match('/index\.php$|' . $privileges . '/', $uri, $matches);
+    return !empty($matches);
+}
+// function checkPrivilege($uri = false) {
+//     $uri = $uri != false ? $uri : $_SERVER['REQUEST_URI'];
+//     if(empty($_SESSION['current_user']['privileges'])){
+//         return false;
+//     }
+//     $privileges = $_SESSION['user']['privileges'];
+//     $privileges = implode("|", $privileges);
+//     preg_match('/index\.php$|' . $privileges . '/', $uri, $matches);
+//     return !empty($matches);
+// }

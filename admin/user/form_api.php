@@ -21,6 +21,6 @@ if(!empty($_POST)) {
 function deleteUser() {
 	$id = getPost('id');
 	$updated_at = date("Y-m-d H:i:s");
-	$sql = "update User set deleted = 1, updated_at = '$updated_at' where id = $id";
+	$sql = "update User set is_active = 1, updated_at = '$updated_at' where id = $id";
 	execute($sql);
 }

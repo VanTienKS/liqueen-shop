@@ -3,11 +3,13 @@ if(!empty($_POST)){
     $id=getPOST("id");
     $name=getPOST("name");
     if($id>0){
+        //sửa
         execute("Update  category set name='$name' where id=$id");
 
             
     }else{
-        execute("INSERT INTO category(name) VALUES ('$name')");
+        //thêm
+        execute("INSERT INTO category(name,deleted) VALUES ('$name',0)");
        
     
     }

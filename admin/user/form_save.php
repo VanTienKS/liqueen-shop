@@ -28,7 +28,8 @@ if(!empty($_POST)) {
 				$sql = "update User set name = '$name', email = '$email', mobile = '$mobile', address = '$address', updated_at = '$updated_at', role_id = $role_id where id = $id";
 			}
 			execute($sql);
-			header('Location: index.php');
+			echo '<div class="alert alert-success" role="alert">Chúc mừng bạn đã sửa thông tin thành công!</div>';
+
 			die();
 		}
 	} else {
@@ -40,7 +41,7 @@ if(!empty($_POST)) {
 			$sql = "insert into User(name, email, mobile, address, password, role_id, created_at, updated_at, is_active) 
             values ('$name', '$email', '$mobile', '$address', '$password', '$role_id', '$created_at', '$updated_at', 1)";
 			execute($sql);
-			header('Location: index.php');
+			echo '<div class="alert alert-success" role="alert">Chúc mừng bạn đã thêm khách hàng thành công!</div>';
 			die();
 		} else {
 			//Tai khoan da ton tai -> failed
