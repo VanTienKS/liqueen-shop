@@ -26,7 +26,7 @@
 		$id = 0;
 	}
 
-	$sql = "select * from Category";
+	$sql = "select * from category";
 	$categoryItems = executeResult($sql);
 	$sql="select * from brand";
 	$brandItems=executeResult($sql);

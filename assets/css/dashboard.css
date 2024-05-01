@@ -87,3 +87,80 @@ body{
     border-color: transparent;
     box-shadow: 0 0 0 3 px rgba(255  , 255, 255, .1);
 }
+.mid-card{
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+}
+
+.card2{
+    margin: 20px auto;
+    width: 900px;
+    height: 400px;
+    background: white;
+    padding: 3px;
+    border-radius:15px;
+    color: white;
+    object-fit: cover;
+    
+}
+.card3{
+    margin: 20px auto;
+    width: 500px;
+    height: 300px;
+    background: white;
+    padding: 3px;       
+    border-radius:15px;
+    color: white;
+    object-fit: cover;
+}
+img {
+    max-width: 100%;
+    width: 100%;
+}
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.gra-bgcolor
+{
+     
+        background-image: url(../img/lkg.jpg);
+        background-size: cover; /* để hình ảnh tự động điều chỉnh kích thước để phù hợp với kích thước của phần tử */
+        /* Các thuộc tính khác tùy chỉnh */
+    
+}
+.clear-both{
+    clear: both;
+}
+.privilege-group{
+    margin-bottom: 15px;
+}
+.group-name{
+    margin: 0;
+    padding-bottom: 5px;
+}
+.privilege-group ul{
+    margin: 0;
+    padding: 0;
+}
+.privilege-group ul li{
+    float: left;
+    width: 15%;
+    list-style: none;
+    padding: 10 10px;
+}
+#editing-form .privilege-group ul li input{
+    float: none;
+}
+#editing-form .privilege-group ul li label{
+    float: none;
+    width: auto;
+}
+    
+.btn41 {
+    font-size: 14px; /* Kích thước font chữ của nút */
+    padding: 5px 10px; /* Khoảng cách giữa nút và biên */
+    margin-left: 5px; /* Khoảng cách giữa các nút */
+}

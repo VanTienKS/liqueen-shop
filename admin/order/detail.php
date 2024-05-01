@@ -2,14 +2,16 @@
 	$title = 'Thông Tin Chi Tiết Đơn Hàng';
 	$baseUrl = '../';
 	require_once('../layouts/header.php');
-
+	require_once('../../utils/utility.php');
 	$orderId = getGet('id');
 
-	$sql = "select order_item.*, Product.name, Product.featured_image from order_item left join Product on Product.id = order_item.product_id where order_item.order_id = $orderId";
+	$sql = "SELECT order_item.*, Product.name, Product.featured_image FROM order_item LEFT JOIN Product ON Product.id = order_item.product_id WHERE order_item.order_id = $orderId";
 	$data = executeResult($sql);
+	
 
-	$sql = "select * from order where id = $orderId";
-	$orderItem = executeResult($sql, true);
+	$sql = "SELECT * FROM `order` WHERE id = $orderId";
+	$orderItem = executeResult($sql);
+
 ?>
 
 <div class="row" style="margin-top: 20px;">
@@ -35,10 +37,10 @@
 		echo '<tr>
 					<th>'.(++$index).'</th>
 					<td><img src="'.fixUrl($item['featured_image']).'" style="height: 120px"/></td>
-					<td>'.$item['title'].'</td>
-					<td>'.$item['price'].'</td>
-					<td>'.$item['num'].'</td>
-					<td>'.$item['total_money'].'</td>
+					<td>'.$item['name'].'</td>
+					<td>'.$item['unit_price'].'</td>
+					<td>'.$item['qty'].'</td>
+					<td>'.$item['total_price'].'</td>
 				</tr>';
 	}
 ?>
@@ -48,7 +50,7 @@
 					<td></td>
 					<td></td>
 					<th>Tổng Tiền</th>
-					<th><?=$orderItem[0]['total_money']?></th>
+					<th><?php echo isset($orderItem[0]['total_price']) ? $orderItem[0]['total_price'] : ''; ?></th>
 				</tr>
 			</tbody>
 		</table>
@@ -57,19 +59,16 @@
 		<table class="table table-bordered table-hover" style="margin-top: 20px;">
 			<tr>
 				<th>Họ & Tên: </th>
-				<td><?=$orderItem[0]['fullname']?></td>
+				<td><?php echo isset($orderItem[0]['cus_fullname']) ? $orderItem[0]['cus_fullname'] : ''; ?></td>
 			</tr>
-			<tr>
-				<th>Email: </th>
-				<td><?=$orderItem[0]['email']?></td>
-			</tr>
+			
 			<tr>
 				<th>Địa Chỉ: </th>
-				<td><?=$orderItem[0]['ward_id']?></td>
+				<td><?php echo isset($orderItem[0]['cus_address']) ? $orderItem[0]['cus_address'] : ''; ?></td>
 			</tr>
 			<tr>
 				<th>Phone: </th>
-				<td><?=$orderItem[0]['mobile']?></td>
+				<td><?php echo isset($orderItem[0]['cus_mobile']) ? $orderItem[0]['cus_mobile'] : ''; ?></td>
 			</tr>
 		</table>
 	</div>
